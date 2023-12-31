@@ -12,22 +12,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-public class AuthController {
+public class RegisterController {
     private final UserRegistrationService userRegistrationService;
 
     @Autowired
-    public AuthController(UserRegistrationService userRegistrationService) {
+    public RegisterController(UserRegistrationService userRegistrationService) {
         this.userRegistrationService = userRegistrationService;
     }
 
     @GetMapping("/register")
     private String getRegister() {
         return "register";
-    }
-
-    @GetMapping("/login")
-    private String getLogin() {
-        return "login";
     }
 
     @ModelAttribute("register")

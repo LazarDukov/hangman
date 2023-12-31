@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hangman</title>
+  <link rel="icon" type="image/x-icon" th:href="@{/images/favicon.png}">
+<!--  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>-->
+
+</head>
+<body>
+<header>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+    }
+
+    header {
+      background-color: transparent;
+      border-bottom: 2px solid #000; /* Adjust the color as needed */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+    }
+
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+
+    nav ul li {
+      margin: 0 10px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #000; /* Adjust the color as needed */
+    }
+
+    nav ul li a:hover {
+      text-decoration: underline;
+    }
+
+    .logo {
+      color: #000; /* Adjust the color as needed */
+      font-size: 18px;
+      font-weight: bold;
+      margin-right: auto; /* Push the logo to the left */
+    }
+
+    form {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+  <div th:fragment="navbar">
+    <nav >
+      <ul>
+
+        <li><a  th:href="@{/}">Home</a></li>
+
+      </ul>
+      <ul>
+        <li><a  sec:authorize="!isAuthenticated()" th:href="@{/register}">Register</a>
+        </li>
+        <li><a  sec:authorize="!isAuthenticated()" th:href="@{/login}">Login</a></li>
+        <label class="logo" sec:authorize="isAuthenticated()">Welcome,
+          <th:block
+                  sec:authentication="name"></th:block>
+        </label>
+
+        <form sec:authorize="isAuthenticated()" th:method="post" th:action="@{/logout}" th:href="@{/}" th:color="1b7eff">
+          <input type="submit" name="" value="Logout">
+        </form>
+      </ul>
+
+    </nav>
+  </div>
+</header>
+</body>
+</html>

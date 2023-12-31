@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,20 +28,20 @@ public class SecurityConfiguration {
                         authorizeHttpRequests().
                 // allow access to all static files (images, CSS, js)
                         requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll().
-                requestMatchers("/", "/register", "/login").permitAll().
+                requestMatchers("/", "/register", "/login", "/login-error").permitAll().
                 // the URL-s below are available for all users - logged in and anonymous
                         anyRequest().authenticated().
                 and().
                 // configure login with HTML form
                         formLogin().
-                loginPage("/users/login").
+                loginPage("/login").
                 // the names of the username, password input fields in the custom login form
                         usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY).
                 passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY).
                 // where do we go after login
 //              //use true argument if you always want to go there, otherwise go to previous page
         defaultSuccessUrl("/", true).//use true argument if you always want to go there, otherwise go to previous page
-                failureForwardUrl("/users/login-error").and().logout().logoutUrl("/users/logout").logoutSuccessUrl("/").invalidateHttpSession(true).
+                failureForwardUrl("/login-error").and().logout().logoutUrl("/logout").logoutSuccessUrl("/").invalidateHttpSession(true).
                 and().
                 securityContext().
                 securityContextRepository(securityContextRepository);
